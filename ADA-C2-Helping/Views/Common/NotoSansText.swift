@@ -26,8 +26,8 @@ struct NotoSansStyle {
 }
 
 struct NotoSansText: View {
-    var text: String
-    var style: NotoSansStyle
+    let text: String
+    let style: NotoSansStyle
     
     init(_ text: String, _ style: NotoSansStyle = NotoSansStyle()) {
         self.text = text
@@ -42,6 +42,6 @@ struct NotoSansText: View {
 }
 
 #Preview {
-    var textStyle = NotoSansStyle(fontStyle: .medium, size: 24, color: .black)
+    let textStyle = NotoSansStyle(fontStyle: .medium, size: 24, color: .black)
     NotoSansText("hello", textStyle);
 }
