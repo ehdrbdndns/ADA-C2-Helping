@@ -22,9 +22,26 @@ struct CardHeader: View {
     }
 }
 
+enum MajorType: String {
+    case tech = "Tech"
+    case design = "Design"
+    case domain = "Domain"
+    
+    var color: Color {
+        switch self {
+        case .tech:
+            return .accentColor
+        case .design:
+            return Color("DesignColor")
+        case .domain:
+            return Color("DomainColor")
+        }
+    }
+}
+
 struct CardFooter: View {
     let name: String
-    let major: String
+    let major: MajorType
     
     var body: some View {
         // 사용자 이름
@@ -33,46 +50,45 @@ struct CardFooter: View {
             
             NotoSansText(" | ")
             
-            NotoSansText(major, NotoSansStyle(fontStyle: .bold, size: 13, color: Color.accentColor))
+            NotoSansText(major.rawValue, NotoSansStyle(fontStyle: .bold, size: 13, color: major.color))
         }
     }
 }
 
+struct CardModel: Identifiable {
+    let id = UUID()
+    let image: String = "default-card"
+    let text: String
+    let name: String
+    let major: MajorType
+}
+
 struct Card: View {
-    var image: String
-    var text: String
-    var name: String
-    var major: String
-    
-    init(image: String = "default-card", text: String, name: String, major: String) {
-        self.image = image
-        self.text = text
-        self.name = name
-        self.major = major
-    }
+    var model: CardModel
     
     var body: some View {
         HStack(alignment: .top, spacing: 8) {
             // 기본 이미지
-            Image(image)
+            Image(model.image)
                 .resizable()
                 .frame(width: 32, height: 32)
             
             VStack(alignment: .leading, spacing: 6) {
-                CardHeader(text)
+                CardHeader(model.text)
                 
-                CardFooter(name: name, major: major)
+                CardFooter(name: model.name, major: model.major)
             }
         }
         .padding(16)
+        .frame(width: .infinity)
         .background(
             RoundedRectangle(cornerRadius: 12)
-                .fill(Color.white) // 또는 원하는 배경색
+                .fill(Color.white)
                 .shadow(color: Color.black.opacity(0.1), radius: 8, x: 0, y: 4)
         )
     }
 }
 
 #Preview {
-    Card(text: "나는 이런 도움이 필요해요. 근데 혼자서 해보려니까 잘 되지 않아요... 누가 좀 도와주세요!!!", name: "pray", major: "Tech")
+    Card(model: CardModel(text: "나는 이런 도움이 필요해요. 근데 혼자서 해보려니까 잘 되지 않아요... 누가 좀 도와주세요!!!", name: "pray", major: .tech))
 }
