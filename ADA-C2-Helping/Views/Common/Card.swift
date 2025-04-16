@@ -80,7 +80,7 @@ struct Card: View {
             }
         }
         .padding(16)
-        .frame(width: .infinity)
+        .frame(maxWidth: .infinity)
         .background(
             RoundedRectangle(cornerRadius: 12)
                 .fill(Color.white)

@@ -16,7 +16,6 @@ struct Header: View {
             
             Image("list-bullet")
         }
-        .padding([.leading, .trailing], 16)
     }
 }
 
