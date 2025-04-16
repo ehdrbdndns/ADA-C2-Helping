@@ -7,8 +7,58 @@
 
 import SwiftUI
 
+struct FAB: View {
+    var body: some View {
+        VStack {
+            HStack {
+                // Button
+                Button {
+                    
+                } label: {
+                    Image(systemName: "plus")
+                }
+                .foregroundStyle(.white)
+                .font(.system(size: 30))
+            }
+            .frame(width: 80, height: 80)
+            .background(.accent, in: RoundedRectangle(cornerRadius: 50))
+        }
+        .frame(maxWidth: .infinity, alignment: .center)
+        .padding(.top, 16)
+        .background(
+            LinearGradient(colors: [Color.white.opacity(0), .white], startPoint: .top, endPoint: UnitPoint(x: 0.5, y: 0.75))
+        )
+    }
+}
+
+struct ListContent: View {
+    var cards: [CardModel]
+    
+    init(_ cards: [CardModel]) {
+        self.cards = cards
+    }
+    
+    var body: some View {
+        VStack {
+            HStack {
+                NotoSansText("도움이 필요해요", NotoSansStyle(
+                    fontStyle: .bold, size: 28
+                ))
+                Spacer()
+                NotoSansText("32", NotoSansStyle(
+                    fontStyle: .bold, size: 16, color: .accent
+                ))
+            }
+            .padding(.horizontal, 16)
+            
+            CardList(cardModels: cards)
+        }
+        
+    }
+}
+
 struct HomeView: View {
-    let cards: [CardModel];
+    let cards: [CardModel]
     
     var body: some View {
         VStack {
@@ -17,42 +67,9 @@ struct HomeView: View {
                 .padding(.horizontal, 16)
             
             ZStack(alignment: .bottom) {
-                // Todo: Content
-                VStack {
-                    HStack {
-                        NotoSansText("도움이 필요해요", NotoSansStyle(
-                            fontStyle: .bold, size: 28
-                        ))
-                        Spacer()
-                        NotoSansText("32", NotoSansStyle(
-                            fontStyle: .bold, size: 16, color: .accent
-                        ))
-                    }
-                    .padding(.horizontal, 16)
-                    
-                    CardList(cardModels: cards)
-                }
+                ListContent(cards)
                 
-                // Todo: FAB
-                VStack {
-                    HStack {
-                        // Button
-                        Button {
-                            
-                        } label: {
-                            Image(systemName: "plus")
-                        }
-                        .foregroundStyle(.white)
-                        .font(.system(size: 30))
-                    }
-                    .frame(width: 80, height: 80)
-                    .background(.accent, in: RoundedRectangle(cornerRadius: 50))
-                }
-                .frame(maxWidth: .infinity, alignment: .center)
-                .padding(.top, 16)
-                .background(
-                    LinearGradient(colors: [Color.white.opacity(0), .white], startPoint: .top, endPoint: UnitPoint(x: 0.5, y: 0.75))
-                )
+                FAB()
             }
         }
     }
