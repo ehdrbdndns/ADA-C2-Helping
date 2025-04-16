@@ -59,17 +59,15 @@ struct HomeView: View {
 }
 
 #Preview {
-    let testDatas: [CardModel] =  [
-        CardModel(text: "나는 이런 도움이 필요해요. 근데 혼자서 해보려니까 잘 되지 않아요... 누가 좀 도와주세요!!!", name: "pray", major: .tech),
-        CardModel(text: "나는 이런 도움이 필요해요. 근데 혼자서 해보려니까 잘 되지 않아요... 누가 좀 도와주세요!!!", name: "pray", major: .design),
-        CardModel(text: "나는 이런 도움이 필요해요. 근데 혼자서 해보려니까 잘 되지 않아요... 누가 좀 도와주세요!!!", name: "pray", major: .domain),
-        CardModel(text: "나는 이런 도움이 필요해요. 근데 혼자서 해보려니까 잘 되지 않아요... 누가 좀 도와주세요!!!", name: "pray", major: .tech),
-        CardModel(text: "나는 이런 도움이 필요해요. 근데 혼자서 해보려니까 잘 되지 않아요... 누가 좀 도와주세요!!!", name: "pray", major: .design),
-        CardModel(text: "나는 이런 도움이 필요해요. 근데 혼자서 해보려니까 잘 되지 않아요... 누가 좀 도와주세요!!!", name: "pray", major: .domain),
-        CardModel(text: "나는 이런 도움이 필요해요. 근데 혼자서 해보려니까 잘 되지 않아요... 누가 좀 도와주세요!!!", name: "pray", major: .tech),
-        CardModel(text: "나는 이런 도움이 필요해요. 근데 혼자서 해보려니까 잘 되지 않아요... 누가 좀 도와주세요!!!", name: "pray", major: .design),
-        CardModel(text: "나는 이런 도움이 필요해요. 근데 혼자서 해보려니까 잘 되지 않아요... 누가 좀 도와주세요!!!", name: "pray", major: .domain)
-    ]
+    let testDatas = [MajorType.tech, .design, .domain].flatMap { majorType in
+        (0..<3).map { i in
+            CardModel(
+                text: "나는 이런 도움이 필요해요. 근데 혼자서 해보려니까 잘 되지 않아요... 누가 좀 도와주세요!!! 예시 \(i+1)",
+                name: "user\(i+1)",
+                major: majorType
+            )
+        }
+    }
     
     HomeView(cards: testDatas)
 }
