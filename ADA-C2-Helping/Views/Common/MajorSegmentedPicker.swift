@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct CustomSegmentedPicker: View {
+struct MajorSegmentedPicker: View {
     var datas: [MajorType]
     @Binding var selectedData: String
     
@@ -46,7 +46,7 @@ struct CustomSegmentedPicker_Previews: View {
     @State private var selectedData: String = MajorType.allCases.first?.rawValue ?? ""
 
     var body: some View {
-        CustomSegmentedPicker(
+        MajorSegmentedPicker(
             datas: MajorType.allCases,
             selectedData: $selectedData
         )
