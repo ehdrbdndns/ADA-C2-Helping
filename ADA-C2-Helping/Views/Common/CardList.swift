@@ -12,18 +12,25 @@ struct CardList: View {
     
     var body: some View {
         VStack { // Todo Scroll View
-            List(cardModels) { model in
-                Card(model: model)
-                    .listRowSeparator(.hidden)
-                    .swipeActions(edge: .trailing, allowsFullSwipe: false) {
-                        Button(role: .destructive) {
-                            
-                        } label: { Label("Delete", systemImage: "trash") }
-                        
-                        Button {
+            List {
+                Section(footer: Spacer().frame(height: 80)) {
+                    ForEach(cardModels) { model in
+                        Card(model: model)
+                            .resetRowStyle(
+                                top: 6, leading: 16, bottom: 12, trailing: 16
+                            )
+                            .swipeActions(edge: .trailing, allowsFullSwipe: false) {
+                                Button(role: .destructive) {
+                                    
+                                } label: { Label("Delete", systemImage: "trash") }
                                 
-                        } label: { Label("Flag", systemImage: "flag") }
+                                Button {
+                                        
+                                } label: { Label("Flag", systemImage: "flag") }
+                            }
                     }
+                }
+                .listRowSeparator(.hidden)
             }
             .listStyle(.plain)
         }
