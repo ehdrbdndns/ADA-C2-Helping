@@ -8,11 +8,14 @@
 import SwiftUI
 
 struct FAB: View {
+    @State private var showSheet = false
+    
     var body: some View {
         VStack {
             // Button
             Button {
                 
+                showSheet = true
             } label: {
                 Image(systemName: "plus")
             }
@@ -20,6 +23,10 @@ struct FAB: View {
             .font(.system(size: 30))
             .frame(width: 80, height: 80)
             .background(.accent, in: RoundedRectangle(cornerRadius: 50))
+            .sheet(isPresented: $showSheet) {
+                // TODO: add CreateHelpView
+                CreateHelpView()
+            }
         }
         .frame(maxWidth: .infinity, alignment: .center)
         .padding(.top, 16)

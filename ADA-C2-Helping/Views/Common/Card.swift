@@ -22,23 +22,6 @@ struct CardHeader: View {
     }
 }
 
-enum MajorType: String {
-    case tech = "Tech"
-    case design = "Design"
-    case domain = "Domain"
-    
-    var color: Color {
-        switch self {
-        case .tech:
-            return .accentColor
-        case .design:
-            return Color("DesignColor")
-        case .domain:
-            return Color("DomainColor")
-        }
-    }
-}
-
 struct CardFooter: View {
     let name: String
     let major: MajorType
