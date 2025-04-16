@@ -10,16 +10,14 @@ import SwiftUI
 struct FAB: View {
     var body: some View {
         VStack {
-            HStack {
-                // Button
-                Button {
-                    
-                } label: {
-                    Image(systemName: "plus")
-                }
-                .foregroundStyle(.white)
-                .font(.system(size: 30))
+            // Button
+            Button {
+                
+            } label: {
+                Image(systemName: "plus")
             }
+            .foregroundStyle(.white)
+            .font(.system(size: 30))
             .frame(width: 80, height: 80)
             .background(.accent, in: RoundedRectangle(cornerRadius: 50))
         }
