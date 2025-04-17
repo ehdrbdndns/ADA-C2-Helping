@@ -7,6 +7,29 @@
 
 import SwiftUI
 
+struct FormSection<Content: View>: View {
+    let title: String
+    let content: () -> Content
+    
+    init(_ title: String, @ViewBuilder content: @escaping () -> Content) {
+        self.title = title;
+        self.content = content
+    }
+    
+    var body: some View {
+        VStack(alignment: .leading) {
+            // Title
+            NotoSansText(
+                title,
+                NotoSansStyle(fontStyle: .medium, size: 15, color: Color.gray666)
+            )
+            
+            // Content
+            content()
+        }
+    }
+}
+
 struct CreateHelpView: View {
     @State private var selectedMajor: String = MajorType.tech.rawValue
     @State private var title: String = ""
@@ -15,26 +38,12 @@ struct CreateHelpView: View {
     var body: some View {
         VStack(spacing: 16) {
             // 요청 분야
-            VStack(alignment: .leading) {
-                // Title
-                NotoSansText(
-                    "요청 분야",
-                    NotoSansStyle(fontStyle: .medium, size: 15, color: Color.gray666)
-                )
-                
-                // Content
+            FormSection("요청 분야") {
                 MajorSegmentedPicker(datas: MajorType.allCases, selectedData: $selectedMajor)
             }
             
             // 제목
-            VStack(alignment: .leading) {
-                // Title
-                NotoSansText(
-                    "제목",
-                    NotoSansStyle(fontStyle: .medium, size: 15, color: Color.gray666)
-                )
-                
-                // Content
+            FormSection("제목") {
                 TextField(
                     "제목을 입력하세요",
                     text: $title
@@ -46,14 +55,7 @@ struct CreateHelpView: View {
             }
             
             // 내용
-            VStack(alignment: .leading) {
-                // Title
-                NotoSansText(
-                    "내용",
-                    NotoSansStyle(fontStyle: .medium, size: 15, color: Color.gray666)
-                )
-                
-                // Content
+            FormSection("내용") {
                 ZStack(alignment: .topLeading) {
                     TextEditor(
                         text: $content
