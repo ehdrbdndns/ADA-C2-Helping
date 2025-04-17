@@ -24,8 +24,8 @@ struct FAB: View {
             .frame(width: 80, height: 80)
             .background(.accent, in: RoundedRectangle(cornerRadius: 50))
             .sheet(isPresented: $showSheet) {
-                // TODO: add CreateHelpView
                 CreateHelpView()
+                    .presentationDragIndicator(.visible)
             }
         }
         .frame(maxWidth: .infinity, alignment: .center)
@@ -63,25 +63,9 @@ struct ListContent: View {
 }
 
 struct HomeView: View {
-    let cards: [CardModel]
     
-    var body: some View {
-        VStack {
-            Header()
-                .padding(.bottom, 24)
-                .padding(.horizontal, 16)
-            
-            ZStack(alignment: .bottom) {
-                ListContent(cards)
-                
-                FAB()
-            }
-        }
-    }
-}
-
-#Preview {
-    let testDatas = [MajorType.tech, .design, .domain].flatMap { majorType in
+    // TODO: 테스트 데이터 수정 예정
+    @State private var cards: [CardModel]  = [MajorType.tech, .design, .domain].flatMap { majorType in
         (0..<3).map { i in
             CardModel(
                 text: "나는 이런 도움이 필요해요. 근데 혼자서 해보려니까 잘 되지 않아요... 누가 좀 도와주세요!!! 예시 \(i+1)",
@@ -91,5 +75,23 @@ struct HomeView: View {
         }
     }
     
-    HomeView(cards: testDatas)
+    var body: some View {
+        NavigationStack {
+            VStack {
+                Header(cards: $cards)
+                    .padding(.bottom, 24)
+                    .padding(.horizontal, 16)
+                
+                ZStack(alignment: .bottom) {
+                    ListContent(cards)
+                    
+                    FAB()
+                }
+            }
+        }
+    }
+}
+
+#Preview {
+    HomeView()
 }
