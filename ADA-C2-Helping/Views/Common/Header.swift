@@ -8,17 +8,21 @@
 import SwiftUI
 
 struct Header: View {
+    @Binding var cards: [CardModel]
+    @Binding var selectedCard: CardModel?
+    
     var body: some View {
         HStack {
             Image("logo")
             
             Spacer()
             
-            Image("list-bullet")
+            NavigationLink {
+                MyView(cards: $cards, selectedCard: $selectedCard)
+                    .navigationTitle("나의 기록")
+            } label: {
+                Image("list-bullet")
+            }
         }
     }
-}
-
-#Preview {
-    Header()
 }
