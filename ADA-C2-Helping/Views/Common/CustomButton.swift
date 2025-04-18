@@ -19,11 +19,11 @@ struct CustomButton: View {
                     , NotoSansStyle(fontStyle: .medium, size: 17, color: .white
                     )
                 )
+                .padding(.vertical, 18)
+                .frame(maxWidth: .infinity)
+                .background(.accent, in: RoundedRectangle(cornerRadius: 12))
+                .shadow(color: Color.black.opacity(0.1), radius: 6, x: 0, y: 2)
             }
-            .padding(.vertical, 18)
-            .frame(maxWidth: .infinity)
-            .background(.accent, in: RoundedRectangle(cornerRadius: 12))
-            .shadow(color: Color.black.opacity(0.1), radius: 6, x: 0, y: 2)
         }
     }
 }

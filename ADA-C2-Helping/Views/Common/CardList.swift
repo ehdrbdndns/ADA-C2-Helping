@@ -8,14 +8,15 @@
 import SwiftUI
 
 struct CardList: View {
-    var cardModels: [CardModel]
+    @Binding var cards: [CardModel]
+    @Binding var selectedCard: CardModel?
     
     var body: some View {
         VStack { // Todo Scroll View
             List {
                 Section(footer: Spacer().frame(height: 80)) {
-                    ForEach(cardModels) { model in
-                        Card(model: model)
+                    ForEach(cards) { card in
+                        Card(model: card)
                             .resetRowStyle(
                                 top: 6, leading: 16, bottom: 12, trailing: 16
                             )
@@ -25,8 +26,11 @@ struct CardList: View {
                                 } label: { Label("Delete", systemImage: "trash") }
                                 
                                 Button {
-                                        
+                                    
                                 } label: { Label("Flag", systemImage: "flag") }
+                            }
+                            .onTapGesture {
+                                selectedCard = card
                             }
                     }
                 }
@@ -35,19 +39,4 @@ struct CardList: View {
             .listStyle(.plain)
         }
     }
-}
-
-#Preview {
-    let testDatas: [CardModel] = [
-        CardModel(text: "나는 이런 도움이 필요해요. 근데 혼자서 해보려니까 잘 되지 않아요... 누가 좀 도와주세요!!!", name: "pray", major: .tech),
-        CardModel(text: "나는 이런 도움이 필요해요. 근데 혼자서 해보려니까 잘 되지 않아요... 누가 좀 도와주세요!!!", name: "pray", major: .design),
-        CardModel(text: "나는 이런 도움이 필요해요. 근데 혼자서 해보려니까 잘 되지 않아요... 누가 좀 도와주세요!!!", name: "pray", major: .domain),
-        CardModel(text: "나는 이런 도움이 필요해요. 근데 혼자서 해보려니까 잘 되지 않아요... 누가 좀 도와주세요!!!", name: "pray", major: .tech),
-        CardModel(text: "나는 이런 도움이 필요해요. 근데 혼자서 해보려니까 잘 되지 않아요... 누가 좀 도와주세요!!!", name: "pray", major: .design),
-        CardModel(text: "나는 이런 도움이 필요해요. 근데 혼자서 해보려니까 잘 되지 않아요... 누가 좀 도와주세요!!!", name: "pray", major: .domain),
-        CardModel(text: "나는 이런 도움이 필요해요. 근데 혼자서 해보려니까 잘 되지 않아요... 누가 좀 도와주세요!!!", name: "pray", major: .tech),
-        CardModel(text: "나는 이런 도움이 필요해요. 근데 혼자서 해보려니까 잘 되지 않아요... 누가 좀 도와주세요!!!", name: "pray", major: .design),
-        CardModel(text: "나는 이런 도움이 필요해요. 근데 혼자서 해보려니까 잘 되지 않아요... 누가 좀 도와주세요!!!", name: "pray", major: .domain)
-    ]
-    CardList(cardModels: testDatas)
 }

@@ -9,6 +9,7 @@ import SwiftUI
 
 struct Header: View {
     @Binding var cards: [CardModel]
+    @Binding var selectedCard: CardModel?
     
     var body: some View {
         HStack {
@@ -17,7 +18,7 @@ struct Header: View {
             Spacer()
             
             NavigationLink {
-                MyView(cards: $cards)
+                MyView(cards: $cards, selectedCard: $selectedCard)
                     .navigationTitle("나의 기록")
             } label: {
                 Image("list-bullet")

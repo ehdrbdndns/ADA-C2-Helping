@@ -38,9 +38,10 @@ struct CardFooter: View {
     }
 }
 
-struct CardModel: Identifiable {
+struct CardModel: Identifiable, Hashable {
     let id = UUID()
     let image: String = "default-card"
+    let title: String
     let text: String
     let name: String
     let major: MajorType
@@ -57,7 +58,7 @@ struct Card: View {
                 .frame(width: 32, height: 32)
             
             VStack(alignment: .leading, spacing: 6) {
-                CardHeader(model.text)
+                CardHeader(model.title)
                 
                 CardFooter(name: model.name, major: model.major)
             }
@@ -70,8 +71,4 @@ struct Card: View {
                 .shadow(color: Color.black.opacity(0.1), radius: 8, x: 0, y: 4)
         )
     }
-}
-
-#Preview {
-    Card(model: CardModel(text: "나는 이런 도움이 필요해요. 근데 혼자서 해보려니까 잘 되지 않아요... 누가 좀 도와주세요!!!", name: "pray", major: .tech))
 }

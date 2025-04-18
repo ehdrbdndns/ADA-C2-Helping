@@ -62,16 +62,16 @@ struct Tab: View {
 
 struct MyView: View {
     @State private var tabMode: TabMode = .myHelp
+    
     @Binding var cards: [CardModel]
+    @Binding var selectedCard: CardModel?
     
     var body: some View {
         VStack {
-            // TODO: Tab
             Tab(tabMode: $tabMode)
                 .padding(.top, 24)
             
-            // TODO: List
-            CardList(cardModels: cards)
+            CardList(cards: $cards, selectedCard: $selectedCard)
         }
         .padding(.horizontal, 16)
     }
