@@ -12,10 +12,50 @@ enum TabMode {
     case giveHelp
 }
 
-struct Tab: View {
-    @Binding var tabMode: TabMode
+struct MyView: View {
+    @ObservedObject var helpViewModel: HelpViewModel
+    @ObservedObject var userViewModel: UserViewModel
+    @State private var tabMode: TabMode = .myHelp
+    @State var filteredCards: [CardModel] = [];
+    @Binding var cards: [CardModel]
+    
+    var user: User
+    var onDetailViewTapped: (CardModel) -> Void
+    var onBackToHome: () -> Void
     
     var body: some View {
+        VStack {
+            Tab
+            
+            CardList(
+                helpViewModel: helpViewModel
+                , userViewModel: userViewModel
+                , cards: $filteredCards
+                , onDetailViewTapped: onDetailViewTapped
+            )
+        }
+        .padding(.horizontal, 16)
+        .onAppear() {
+            applyFilter()
+        }
+        .onChange(of: tabMode) {
+            applyFilter()
+        }
+        .onChange(of: cards) {
+            applyFilter()
+        }
+        .navigationBarBackButtonHidden(true) // 기본 백버튼 숨기고
+        .navigationTitle("나의 기록")
+        .toolbar {
+            ToolbarItem(placement: .navigationBarLeading) {
+                Button("< 뒤로") {
+                    onBackToHome()
+                }
+            }
+        }
+    }
+    
+    var Tab: some View {
         HStack() {
             Button {
                 tabMode = .myHelp
@@ -57,22 +97,19 @@ struct Tab: View {
             }
             .frame(maxWidth: 180)
         }
+        .padding(.top, 24)
     }
-}
-
-struct MyView: View {
-    @State private var tabMode: TabMode = .myHelp
     
-    @Binding var cards: [CardModel]
-    @Binding var selectedCard: CardModel?
-    
-    var body: some View {
-        VStack {
-            Tab(tabMode: $tabMode)
-                .padding(.top, 24)
-            
-            CardList(cards: $cards, selectedCard: $selectedCard)
+    private func applyFilter() {
+        switch tabMode {
+        case .myHelp:
+            filteredCards = cards.filter { card in
+                return user.writtenHelps.contains(card.helpId)
+            }
+        case .giveHelp:
+            filteredCards = cards.filter { card in
+                return card.helperId == user.id
+            }
         }
-        .padding(.horizontal, 16)
     }
 }

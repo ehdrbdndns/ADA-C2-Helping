@@ -31,9 +31,15 @@ struct FormSection<Content: View>: View {
 }
 
 struct CreateHelpView: View {
-    @State private var selectedMajor: String = MajorType.tech.rawValue
+    @Environment(\.dismiss) var dismiss
+    @ObservedObject var helpViewModel: HelpViewModel
+    
+    @State private var selectedMajor: MajorType = .tech
     @State private var title: String = ""
     @State private var content: String = ""
+    
+    // TODO: Change test data
+    let user = User()
     
     var body: some View {
         VStack(spacing: 16) {
@@ -76,16 +82,19 @@ struct CreateHelpView: View {
                     }
                 }
             }
-            
             CustomButton(text: "글 작성하기") {
-                
+                Task {
+                    await helpViewModel.createHelp(title: title, content: content, major: selectedMajor, user: user)
+                }
             }
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
         .padding(24)
+        .onChange(of: helpViewModel.isSuccess, initial: false) { oldValue, newValue in
+            if newValue {
+                dismiss()
+                helpViewModel.initState()
+            }
+        }
     }
-}
-
-#Preview {
-    CreateHelpView()
 }

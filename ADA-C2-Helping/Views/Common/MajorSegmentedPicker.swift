@@ -9,20 +9,20 @@ import SwiftUI
 
 struct MajorSegmentedPicker: View {
     var datas: [MajorType]
-    @Binding var selectedData: String
+    @Binding var selectedData: MajorType
     
     var body: some View {
         HStack(spacing: 0) {
             ForEach(datas, id: \.self) { data in
                 Button {
-                    selectedData = data.rawValue
+                    selectedData = data
                 } label: {
                     NotoSansText(
                         data.rawValue,
                         NotoSansStyle(
                             fontStyle: .medium
                             , size: 15
-                            , color: data.rawValue == selectedData
+                            , color: data == selectedData
                                         ? .white
                                         : .gray666
                         )
@@ -30,9 +30,9 @@ struct MajorSegmentedPicker: View {
                     .frame(maxWidth: .infinity)
                     .padding(.vertical, 10)
                     .background(
-                        data.rawValue == selectedData
-                        ? data.color
-                        : Color.clear
+                        data == selectedData
+                            ? data.color
+                            : Color.clear
                     )
                 }
             }
@@ -40,20 +40,4 @@ struct MajorSegmentedPicker: View {
         .frame(maxWidth: .infinity)
         .background(Color.empty, in: RoundedRectangle(cornerRadius: 8))
     }
-}
-
-struct CustomSegmentedPicker_Previews: View {
-    @State private var selectedData: String = MajorType.allCases.first?.rawValue ?? ""
-
-    var body: some View {
-        MajorSegmentedPicker(
-            datas: MajorType.allCases,
-            selectedData: $selectedData
-        )
-        .padding(.horizontal, 50)
-    }
-}
-
-#Preview {
-    CustomSegmentedPicker_Previews()
 }

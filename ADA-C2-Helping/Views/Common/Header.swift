@@ -10,6 +10,8 @@ import SwiftUI
 struct Header: View {
     @Binding var cards: [CardModel]
     @Binding var selectedCard: CardModel?
+    var user: User
+    var onMyViewTapped: () -> Void
     
     var body: some View {
         HStack {
@@ -17,9 +19,8 @@ struct Header: View {
             
             Spacer()
             
-            NavigationLink {
-                MyView(cards: $cards, selectedCard: $selectedCard)
-                    .navigationTitle("나의 기록")
+            Button {
+                onMyViewTapped()
             } label: {
                 Image("list-bullet")
             }

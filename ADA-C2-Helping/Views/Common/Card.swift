@@ -17,6 +17,7 @@ struct CardHeader: View {
     var body: some View {
         HStack(alignment: .top, spacing: 8) {
             NotoSansText(text, NotoSansStyle(fontStyle: .medium))
+                .frame(maxWidth: .infinity, alignment: .leading)
             Image("right-arrow")
         }
     }
@@ -40,6 +41,8 @@ struct CardFooter: View {
 
 struct CardModel: Identifiable, Hashable {
     let id = UUID()
+    let helpId: String
+    let helperId: String
     let image: String = "default-card"
     let title: String
     let text: String

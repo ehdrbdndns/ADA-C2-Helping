@@ -6,7 +6,7 @@
 //
 import SwiftUI
 
-enum MajorType: String, CaseIterable, Identifiable {
+enum MajorType: String, CaseIterable, Identifiable, Codable {
     case tech = "Tech"
     case design = "Design"
     case domain = "Domain"

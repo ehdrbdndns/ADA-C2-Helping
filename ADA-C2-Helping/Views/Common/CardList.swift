@@ -8,8 +8,12 @@
 import SwiftUI
 
 struct CardList: View {
+    
+    @ObservedObject var helpViewModel: HelpViewModel
+    @ObservedObject var userViewModel: UserViewModel
+    
     @Binding var cards: [CardModel]
-    @Binding var selectedCard: CardModel?
+    var onDetailViewTapped: (CardModel) -> Void
     
     var body: some View {
         VStack { // Todo Scroll View
@@ -22,15 +26,14 @@ struct CardList: View {
                             )
                             .swipeActions(edge: .trailing, allowsFullSwipe: false) {
                                 Button(role: .destructive) {
-                                    
+                                    Task {
+                                        await helpViewModel.deleteHelp(card.helpId)
+                                        await userViewModel.fetchUser(id: userViewModel.user.id)
+                                    }
                                 } label: { Label("Delete", systemImage: "trash") }
-                                
-                                Button {
-                                    
-                                } label: { Label("Flag", systemImage: "flag") }
                             }
                             .onTapGesture {
-                                selectedCard = card
+                                onDetailViewTapped(card)
                             }
                     }
                 }

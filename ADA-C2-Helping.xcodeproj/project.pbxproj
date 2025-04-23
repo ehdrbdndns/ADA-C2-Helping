@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		E74D86892DB5E61E008D575E /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = E74D86882DB5E61E008D575E /* FirebaseFirestore */; };
 		E74D868B2DB5E6F0008D575E /* FirebaseDatabase in Frameworks */ = {isa = PBXBuildFile; productRef = E74D868A2DB5E6F0008D575E /* FirebaseDatabase */; };
 		E7CFC5512DB2872100E13D68 /* FirebaseCore in Frameworks */ = {isa = PBXBuildFile; productRef = E7CFC5502DB2872100E13D68 /* FirebaseCore */; };
 /* End PBXBuildFile section */
@@ -73,7 +72,6 @@
 			files = (
 				E74D868B2DB5E6F0008D575E /* FirebaseDatabase in Frameworks */,
 				E7CFC5512DB2872100E13D68 /* FirebaseCore in Frameworks */,
-				E74D86892DB5E61E008D575E /* FirebaseFirestore in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -143,7 +141,6 @@
 			name = "ADA-C2-Helping";
 			packageProductDependencies = (
 				E7CFC5502DB2872100E13D68 /* FirebaseCore */,
-				E74D86882DB5E61E008D575E /* FirebaseFirestore */,
 				E74D868A2DB5E6F0008D575E /* FirebaseDatabase */,
 			);
 			productName = "ADA-C2-Helping";
@@ -432,6 +429,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"ADA-C2-Helping/Preview Content\"";
+				DEVELOPMENT_TEAM = 7WT5JSS7B6;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "ADA-C2-Helping/Info.plist";
@@ -461,6 +459,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"ADA-C2-Helping/Preview Content\"";
+				DEVELOPMENT_TEAM = 7WT5JSS7B6;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "ADA-C2-Helping/Info.plist";
@@ -603,11 +602,6 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		E74D86882DB5E61E008D575E /* FirebaseFirestore */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = E7CFC54E2DB284C100E13D68 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
-			productName = FirebaseFirestore;
-		};
 		E74D868A2DB5E6F0008D575E /* FirebaseDatabase */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = E7CFC54E2DB284C100E13D68 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
