@@ -2,7 +2,7 @@
 //  MyView.swift
 //  ADA-C2-Helping
 //
-//  Created by Donggyun Yang on 4/17/25.
+//  Created by Karyn Kim on 4/17/25.
 //
 
 import SwiftUI
@@ -26,7 +26,7 @@ struct MyView: View {
     var body: some View {
         VStack {
             Tab
-            
+    
             CardList(
                 helpViewModel: helpViewModel
                 , userViewModel: userViewModel
@@ -36,12 +36,15 @@ struct MyView: View {
         }
         .padding(.horizontal, 16)
         .onAppear() {
+            print("onAppear myView", cards.count)
             applyFilter()
         }
         .onChange(of: tabMode) {
+            print("onChange Tab mode of myView")
             applyFilter()
         }
-        .onChange(of: cards) {
+        .onChange(of: cards.count) {
+            print("onChange filteredCards of myView")
             applyFilter()
         }
         .navigationBarBackButtonHidden(true) // 기본 백버튼 숨기고
@@ -104,7 +107,7 @@ struct MyView: View {
         switch tabMode {
         case .myHelp:
             filteredCards = cards.filter { card in
-                return user.writtenHelps.contains(card.helpId)
+                return card.authorId == user.id
             }
         case .giveHelp:
             filteredCards = cards.filter { card in

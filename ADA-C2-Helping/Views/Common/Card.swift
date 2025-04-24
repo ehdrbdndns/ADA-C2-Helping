@@ -43,6 +43,7 @@ struct CardModel: Identifiable, Hashable {
     let id = UUID()
     let helpId: String
     let helperId: String
+    let authorId: String
     let image: String = "default-card"
     let title: String
     let text: String

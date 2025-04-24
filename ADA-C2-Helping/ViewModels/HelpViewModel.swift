@@ -86,6 +86,7 @@ class HelpViewModel: ObservableObject {
         
         do {
             try await HelpService.shared.deleteHelp(helpId)
+            helps.removeAll{ $0.id == helpId }
             self.isSuccess = true
         } catch {
             self.error = error.localizedDescription

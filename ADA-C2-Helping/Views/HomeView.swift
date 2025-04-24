@@ -27,14 +27,7 @@ struct HomeView: View {
     var body: some View {
         NavigationStack(path: $routerPath) {
             VStack {
-                Header(
-                    cards: $cards
-                    , selectedCard: $selectedCard
-                    , user: userViewModel.user
-                    , onMyViewTapped: { routerPath.append(.my) }
-                    )
-                    .padding(.bottom, 24)
-                    .padding(.horizontal, 16)
+                Header
                 
                 ZStack(alignment: .bottom) {
                     ListContent
@@ -47,11 +40,13 @@ struct HomeView: View {
                 await userViewModel.fetchUser(id: userViewModel.user.id)
             }
             .onChange(of: helpViewModel.isSuccess) { _, isSuccess in
+                print("onChangeHomeView", isSuccess)
                 if isSuccess {
                     cards = helpViewModel.helps.map { help in
                         CardModel(
                             helpId: help.id,
                             helperId: help.helperId,
+                            authorId: help.authorId,
                             title: help.title,
                             text: help.content,
                             name: help.authorNickname,
@@ -67,12 +62,35 @@ struct HomeView: View {
                         CardModel(
                             helpId: help.id,
                             helperId: help.helperId,
+                            authorId: help.authorId,
                             title: help.title,
                             text: help.content,
                             name: help.authorNickname,
                             major: help.major
                         )
                     }
+                }
+            }
+            .onChange(of: helpViewModel.helps.count) { beforCount, newCount in
+                print("onChangeHomeView", beforCount, newCount)
+                if beforCount != newCount {
+                    print("preview")
+                    print(cards.count);
+                    
+                    cards = helpViewModel.helps.map { help in
+                        CardModel(
+                            helpId: help.id,
+                            helperId: help.helperId,
+                            authorId: help.authorId,
+                            title: help.title,
+                            text: help.content,
+                            name: help.authorNickname,
+                            major: help.major
+                        )
+                    }
+                    
+                    print("after")
+                    print(cards.count)
                 }
             }
             .navigationDestination(for: AppRoute.self) { route in
@@ -104,6 +122,22 @@ struct HomeView: View {
         }
     }
     
+    var Header: some View {
+        HStack {
+            Image("logo")
+            
+            Spacer()
+            
+            Button {
+                routerPath.append(.my)
+            } label: {
+                Image("list-bullet")
+            }
+        }
+        .padding(.bottom, 24)
+        .padding(.horizontal, 16)
+    }
+    
     var ListContent: some View {
         VStack {
             HStack {
@@ -111,7 +145,7 @@ struct HomeView: View {
                     fontStyle: .bold, size: 28
                 ))
                 Spacer()
-                NotoSansText(String(cards.count), NotoSansStyle(
+                NotoSansText(String(filteredCards.count), NotoSansStyle(
                     fontStyle: .bold, size: 16, color: .accent
                 ))
             }

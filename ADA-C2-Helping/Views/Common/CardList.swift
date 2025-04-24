@@ -13,6 +13,7 @@ struct CardList: View {
     @ObservedObject var userViewModel: UserViewModel
     
     @Binding var cards: [CardModel]
+    var canDeleteCard: Bool = false
     var onDetailViewTapped: (CardModel) -> Void
     
     var body: some View {
